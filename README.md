@@ -5,6 +5,7 @@
 
 Windows:
 Remove-Item -Recurse -Force .git
+
 Mac:
 rm -rf .git
 
