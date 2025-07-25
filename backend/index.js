@@ -102,6 +102,8 @@ let latestLight = null;
 io.on("connection", (socket) => {
   console.log("Frontend connected to socket");
 
+  
+
   // Send the latest sensor data to the newly connected client
   if (latestTemp) {
     socket.emit('temp', latestTemp);
@@ -110,6 +112,12 @@ io.on("connection", (socket) => {
   if (latestLight) {
     socket.emit('light', latestLight);
   }
+
+  socket.on('text', (message) => {
+    console.log('Backend received message:', message);
+    //Node -> MQTT
+    client.publish("text", message.toString());
+  });
 
   // Listen for messages from the frontend
   socket.on('display', (message) => {
@@ -163,6 +171,10 @@ server.listen(8000, () => {
 
 client.on('message', (TOPIC, payload) => {
   console.log("Received from broker:", TOPIC, payload.toString());
+  if (topic === "response") {
+    //Node -> Frontend
+    io.emit("response", payload.toString());
+  }
   if( TOPIC === 'temp' ) {
     latestTemp = payload.toString();
   }

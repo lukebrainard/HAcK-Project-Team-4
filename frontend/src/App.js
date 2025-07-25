@@ -6,6 +6,9 @@ const socket = io('http://localhost:8000');
 
 function App() {
   const [pictureStatus, setPictureStatus] = useState("");
+  const [text, setText] = useState(null);
+  const [response, setResponse] = useState(null);
+
 
   useEffect(() => {
     socket.on('connect', () => console.log('Connected:', socket.id));
@@ -18,9 +21,34 @@ function App() {
     };
   }, []);
 
+  const handleChange = e => setText(e.target.value);
+
+  const handleSubmit = e => {
+    console.log("Frontend sending message: " + text);
+    e.preventDefault(); // prevent page from refreshing
+    //React -> Node
+    socket.emit('text', text);
+    setText("");
+  };
+
   return (
-    <div className="app">
-      <p>Write your code here!</p>
+    <div className="App">
+      <form className="message-form" onSubmit={handleSubmit}>
+          <h1>Send a message</h1>
+          <div className="input-group">
+            <input
+              type="text"
+              placeholder="Enter message"
+              value={text}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type="submit" className="message-button">
+            Send
+          </button>
+        </form>
+      <h2>Response: {response} </h2>
     </div>
   );
 }
