@@ -8,6 +8,10 @@ function App() {
   const [pictureStatus, setPictureStatus] = useState("");
   const [text, setText] = useState(null);
   const [response, setResponse] = useState(null);
+  const [temp, setTempr] = useState(null);
+  const [humidity, setHumidity] = useState(null);
+  const [lumen, setLumitity] = useState(null);
+  const [distance, setDistance] = useState(null);
 
 
   useEffect(() => {
@@ -28,6 +32,12 @@ function App() {
     };
   }, [])
 
+  useEffect(() => {
+    socket.on('temp', msg => setTempr(msg))
+    socket.on('light', msg => setLumitity(msg))
+    socket.on('humidity', msg => setHumidity(msg))
+  })
+
   const handleChange = e => setText(e.target.value);
 
   const handleSubmit = e => {
@@ -39,9 +49,15 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <form className="message-form" onSubmit={handleSubmit}>
-          <h1>Send a message</h1>
+    <div className="Control Center">
+      <h1>Unit 404</h1>
+      <div className="values">
+        <h2>Temprature: {temp}</h2>
+        <h2>Humidity: {humidity}</h2>
+        <h2>Lumens: {lumen}</h2>
+        <h2>Distance from target: {distance}</h2>
+      </div>
+      <form className="message-fo" onSubmit={handleSubmit}>
           <div className="input-group">
             <input
               type="text"
