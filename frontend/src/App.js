@@ -36,6 +36,7 @@ function App() {
     socket.on('temp', msg => setTempr(msg))
     socket.on('light', msg => setLumitity(msg))
     socket.on('humidity', msg => setHumidity(msg))
+    socket.on('ultrasonic', msg => setDistance(msg))
   })
 
   const handleChange = e => setText(e.target.value);
