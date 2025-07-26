@@ -7,7 +7,7 @@ def cb(topic, msg):
 
 def main():
     try:
-        connect_internet("",password="")
+        connect_internet("HAcK-Project-WiFi-2",password="UCLA.HAcK.2024.Summer")
         client = connect_mqtt("5cb09e3e4832406fa9e58d96b387c192.s1.eu.hivemq.cloud", "LukeB", "Luke122604!?")
 
         client.set_callback(cb)
