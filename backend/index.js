@@ -83,6 +83,14 @@ client.on('connect', async () => {
       console.log("Subscribed to 'light'");
     }
   });
+
+  client.subscribe("response", (err) => {
+    if (err) {
+      console.error("Subscription error for 'response': ", err);
+    } else {
+      console.log("Subscribed to 'response'");
+    }
+  });
 });
 
 
@@ -171,7 +179,7 @@ server.listen(8000, () => {
 
 client.on('message', (TOPIC, payload) => {
   console.log("Received from broker:", TOPIC, payload.toString());
-  if (topic === "response") {
+  if (TOPIC === "response") {
     //Node -> Frontend
     io.emit("response", payload.toString());
   }

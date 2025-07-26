@@ -21,6 +21,13 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    socket.on('response', msg => setResponse(msg));
+    return () => {
+      socket.off('response');    
+    };
+  }, [])
+
   const handleChange = e => setText(e.target.value);
 
   const handleSubmit = e => {

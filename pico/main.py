@@ -8,7 +8,7 @@ def cb(topic, msg):
 def main():
     try:
         connect_internet("",password="")
-        client = connect_mqtt("", "", "")
+        client = connect_mqtt("5cb09e3e4832406fa9e58d96b387c192.s1.eu.hivemq.cloud", "LukeB", "Luke122604!?")
 
         client.set_callback(cb)
         client.subscribe("text")
@@ -19,7 +19,7 @@ def main():
             sleep(0.1)
             counter+=1
             if (counter == 100):
-                client.publish("response", "Hello from the pico!")
+                client.publish("message", "Hello from the pico!")
     except KeyboardInterrupt:
         print('keyboard interrupt')
         
