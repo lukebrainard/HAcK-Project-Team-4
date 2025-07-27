@@ -12,6 +12,7 @@ function App() {
   const [humidity, setHumidity] = useState(null);
   const [lumen, setLumitity] = useState(null);
   const [distance, setDistance] = useState(null);
+  const [audioUrl, setAudioUrl] = useState(null);
 
 
   useEffect(() => {
@@ -20,7 +21,8 @@ function App() {
       setPictureStatus(data.message);
       setTimeout(() => setPictureStatus("./downloaded_image.jpg"), 3000); // Clear status after 3 seconds
       let discriptionAudio = new Audio('./audio_discription.mp3');
-      discriptionAudio.play() 
+      setAudioUrl('./audio_discription.mp3');
+      discriptionAudio.play();
     });
     return () => {
       socket.off('picture_taken');
