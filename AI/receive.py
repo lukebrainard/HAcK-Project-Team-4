@@ -8,6 +8,7 @@ import sys
 # Get the folder where the script is located, done for you
 script_dir = os.path.dirname(os.path.abspath(__file__))
 filename = os.path.join(script_dir, "../frontend/src/downloaded_image.jpg") 
+textResponse = ""
 
 url = "http://192.168.50.230/1024x768.jpg"             # You will have to change the IP Address
 
@@ -24,5 +25,7 @@ def download_image():
 
 # TODO: Download the image and get a response from openai
 download_image()
+textResponse = send_to_openai.make_response(filename)
+send_to_openai.make_audible(textResponse)
 # TODO: How to control when to take photo?
 
