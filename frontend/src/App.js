@@ -18,7 +18,9 @@ function App() {
     socket.on('connect', () => console.log('Connected:', socket.id));
     socket.on('picture_taken', data => {
       setPictureStatus(data.message);
-      setTimeout(() => setPictureStatus(""), 3000); // Clear status after 3 seconds
+      setTimeout(() => setPictureStatus("./downloaded_image.jpg"), 3000); // Clear status after 3 seconds
+      let discriptionAudio = new Audio('./audio_discription.mp3');
+      discriptionAudio.play() 
     });
     return () => {
       socket.off('picture_taken');
