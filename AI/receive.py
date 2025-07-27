@@ -26,6 +26,7 @@ def download_image():
 # TODO: Download the image and get a response from openai
 download_image()
 textResponse = send_to_openai.make_response(filename)
+print(textResponse)
 send_to_openai.make_audible(textResponse)
 # TODO: How to control when to take photo?
 

@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import io from 'socket.io-client';
+import reactImg from "./downloaded_image.jpg"
+import sound from "./audio_discription.mp3"
 import './App.css';
+import useSound from 'use-sound'
+
 
 const socket = io('http://localhost:8000');
 
 function App() {
-  const [pictureStatus, setPictureStatus] = useState("");
+  const [pictureStatus, setPictureStatus] = useState();
   const [text, setText] = useState(null);
   const [response, setResponse] = useState(null);
   const [temp, setTempr] = useState(null);
@@ -13,15 +17,16 @@ function App() {
   const [lumen, setLumitity] = useState(null);
   const [distance, setDistance] = useState(null);
   const [audioUrl, setAudioUrl] = useState(null);
+  const [playSound] = useSound(sound);
 
 
   useEffect(() => {
     socket.on('connect', () => console.log('Connected:', socket.id));
     socket.on('picture_taken', data => {
-      setPictureStatus(data.message);
-      setTimeout(() => setPictureStatus("./downloaded_image.jpg"), 3000); // Clear status after 3 seconds
-      let discriptionAudio = new Audio('./audio_discription.mp3');
-      setAudioUrl('./audio_discription.mp3');
+      //setPictureStatus(data.message);
+      //setTimeout(() => setPictureStatus("http://localhost:8000/images/downloaded_image.jpg"), 3000); // Clear status after 3 seconds
+      let discriptionAudio = new Audio('audio_discription.mp3');
+      setAudioUrl('audio_discription.mp3');
       discriptionAudio.play();
     });
     return () => {
@@ -85,7 +90,10 @@ function App() {
       <button type="button" onClick={takePic}>
         Take a picture
       </button>
-      <img src={pictureStatus}/>
+      <button type = "button" onClick = {() => playSound()}>
+        Play audio discription
+      </button>
+      <img src={reactImg}/>
     </div>
   );
 }
