@@ -8,7 +8,7 @@ import sys
 script_dir = os.path.dirname(os.path.abspath(__file__))
 filename = os.path.join(script_dir, "../frontend/src/downloaded_image.jpg") 
 
-url = "http://172.20.10.6/1024x768.jpg"             # You will have to change the IP Address
+url = "http://192.168.50.230/1024x768.jpg"             # You will have to change the IP Address
 
 # Function to download the image from esp32, given to you
 def download_image():
@@ -22,6 +22,6 @@ def download_image():
         print("Failed to download image. Status code:", response.status_code)
 
 # TODO: Download the image and get a response from openai
-
+download_image()
 # TODO: How to control when to take photo?
 

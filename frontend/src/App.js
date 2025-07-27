@@ -49,6 +49,11 @@ function App() {
     setText("");
   };
 
+  const takePic = () => {
+    console.log("taking a picture");
+    socket.emit('take_picture');
+  }
+
   return (
     <div className="Control Center">
       <h1>Unit 404</h1>
@@ -73,6 +78,9 @@ function App() {
           </button>
         </form>
       <h2>Response: {response} </h2>
+      <button type="button" onClick={takePic}>
+        Take a picture
+      </button>
     </div>
   );
 }
