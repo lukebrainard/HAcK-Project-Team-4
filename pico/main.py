@@ -19,6 +19,7 @@ ECHO = Pin(17, Pin.IN)
 SPEED_SOUND_CM_US = 0.034
 
 lastMsg = ""
+lastInfo = ""
 
 def get_distance():
     TRIGGER.low()
@@ -35,8 +36,11 @@ def get_distance():
 
 def cb(topic, msg):
     global lastMsg
+    global lastInfo
     if topic == b"text":
         lastMsg = msg.decode()
+    elif topic == b"data":
+        lastInfo = msg.decode()
         
 
 def main():
@@ -45,6 +49,7 @@ def main():
         client = connect_mqtt("5cb09e3e4832406fa9e58d96b387c192.s1.eu.hivemq.cloud", "LukeB", "Luke122604!?")
         client.set_callback(cb)
         client.subscribe("text")
+        client.subscribe("data")
         while True: 
         # Read sensor
             
@@ -63,11 +68,11 @@ def main():
                 lumensAdj = 1
             
             d = get_distance()
-        # Print the values if the sensor is working
-            print("Temperature:", tempC, "C")
-            print("Temperature:", tempF, "F")
-            print("Humidity:", hum, "%")
-            print("Light Value", light_value)
+            # Print the values if the sensor is working
+            # print("Temperature:", tempC, "C")
+            # print("Temperature:", tempF, "F")
+            # print("Humidity:", hum, "%")
+            # print("Light Value", light_value)
             if d >= 0:
                 print("Distance: " + "{:.2f}".format(d) + " cm")
             else:
@@ -81,12 +86,13 @@ def main():
             client.publish("light", str(lumens))
             client.publish("temp", str(tempF))
             client.publish("humidity", str(hum))
-            oled.text(str(tempC) + "C" , 0, 0)
-            oled.text(str(tempF) +  "F", 0, 10)
-            oled.text(str(hum) + "%", 0, 20)
-            oled.text(str(lumens) + " Lumens", 0, 30)
-            oled.text(str(d) + " cm", 0, 40)
-            oled.text(lastMsg, 0, 50)
+            # oled.text(str(tempC) + "C" , 0, 0)
+            # oled.text(str(tempF) +  "F", 0, 10)
+            # oled.text(str(hum) + "%", 0, 20)
+            # oled.text(str(lumens) + " Lumens", 0, 30)
+            # oled.text(str(d) + " cm", 0, 40)
+            oled.text(lastMsg, 0, 0)
+            oled.text(lastData, 0, 10)
             oled.show()
             # Delay before the next read
             time.sleep(1)

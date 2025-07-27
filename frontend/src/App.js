@@ -66,13 +66,24 @@ function App() {
   return (
     <div className="Control Center">
       <h1>Unit 404</h1>
-      <div className="values">
+      <div className="temp">
         <h2>Temprature: {temp}</h2>
-        <h2>Humidity: {humidity}</h2>
-        <h2>Lumens: {lumen}</h2>
-        <h2>Distance from target: {distance}</h2>
+        <button type="button" onClick={() => socket.emit('tempRequest', temp + " Degrees")}>Send Temprature</button>
       </div>
-      <form className="message-fo" onSubmit={handleSubmit}>
+      <div className="humidity">
+        <h2>Humidity: {humidity}</h2>
+          <button type="button" onClick={() => socket.emit('humidityRequest', humidity + " % Humid")}>Send humidity</button>
+      </div>
+      <div className="lumens">
+        <h2>Lumens: {lumen}</h2>
+        <button type="button" onClick={() => socket.emit('lumenRequest', lumen + " lumens")}>Send lumens</button>
+      </div>
+      <div className="distances">
+        <h2>Distance from target: {distance}</h2>
+        <button type="button" onClick={() => socket.emit('distanceRequest', distance + " cm")}>Send distance</button>
+      </div>
+      <div>
+        <form className="message-fo" onSubmit={handleSubmit}>
           <div className="input-group">
             <input
               type="text"
@@ -86,7 +97,7 @@ function App() {
             Send
           </button>
         </form>
-      <h2>Response: {response} </h2>
+      </div>
       <button type="button" onClick={takePic}>
         Take a picture
       </button>
