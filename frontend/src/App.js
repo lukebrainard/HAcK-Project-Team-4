@@ -81,6 +81,7 @@ function App() {
       <button type="button" onClick={takePic}>
         Take a picture
       </button>
+      <img src={pictureStatus}/>
     </div>
   );
 }
